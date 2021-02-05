@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-module.export = new mongoose.Schema({
+module.exports = new mongoose.Schema({
   name: String,
   phone: String,
 });

@@ -1,11 +1,18 @@
 const mongoose = require("mongoose");
-const { MURL, MDB } = require("./config");
+const { MURL, MDB, MUSER, MPASS, MPORT } = require("./config");
 
-module.exports = new Promise((resolve, reject) => {
-  console.log(MURL, MDB);
+module.exports = new Promise(async (resolve, reject) => {
   mongoose.connect(
-    `${MURL}/${MDB}`,
-    { useNewUrlParser: true, useUnifiedTopology: true },
+    `${MURL}:${MPORT}/${MDB}`,
+    {
+      auth: {
+        authSource: "admin",
+      },
+      user: MUSER,
+      pass: MPASS,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    },
     (err) => {
       if (err) return reject(err.message);
       resolve();
