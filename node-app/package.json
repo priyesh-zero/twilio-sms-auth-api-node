@@ -5,6 +5,10 @@
   "main": "index.js",
   "author": "Priyesh Shrivastava",
   "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
   "dependencies": {
     "dotenv-safe": "^8.2.0",
     "express": "^4.17.1",

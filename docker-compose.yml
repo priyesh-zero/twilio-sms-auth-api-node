@@ -10,8 +10,10 @@ services:
       - 8080:8080
     volumes:
       - ./node-app:/usr/share/app
+    depends_on:
+      - mongo
     # command: '-e "setInterval(() => console.log(''Running Container''), 1000)"'
-    command: ["node", "src/index.js"]
+    command: ["yarn", "dev"]
 
   mongo:
     image: mongo
