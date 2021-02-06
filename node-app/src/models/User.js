@@ -1,33 +1,45 @@
 const mongoose = require("mongoose");
-const userSchema = require("../schemas/User");
+const userSchema = require("../mongoose-schemas/User");
+const APIError = require("../utils/api-error");
 
 class User {
   constructor() {
-    console.log(userSchema);
     this.userModel = mongoose.model("User", userSchema);
   }
   // Create a New User
-  create = async () => {
-    try {
-      const user = new this.userModel({
-        name: "User Name",
-        phone: `${Math.ceil(Math.random() * 10000000000)}`,
-      });
-      console.log(user);
-      await user.save();
-      return "User was successfully created";
-    } catch (e) {
-      return e.message;
+  create = async (name, phone) => {
+    const existingUser = await this.userModel.findOne({
+      phone,
+      validated: true,
+    });
+    if (existingUser) {
+      throw APIError.badRequest("User already exits");
     }
+    const user = await this.userModel.findOneAndUpdate(
+      { phone },
+      { phone, name, validated: false },
+      { upsert: true, new: true }
+    );
+    return user._id;
   };
   // List all users
   all = async () => {
-    try {
-      const users = await this.userModel.find();
-      return users;
-    } catch (e) {
-      return { error: e.message };
+    const users = await this.userModel.find();
+    return users;
+  };
+  // Verify Registration
+  verify = async (uid) => {
+    await this.userModel.findByIdAndUpdate(uid, {
+      validated: true,
+    });
+  };
+  // Get Uid from Phone for validated user
+  getUid = async (phone) => {
+    const user = await this.userModel.findOne({ phone, validated: true });
+    if (!user) {
+      throw APIError.badRequest("User Record does not exists");
     }
+    return user._id;
   };
 }
 

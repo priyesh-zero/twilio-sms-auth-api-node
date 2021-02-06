@@ -5,4 +5,5 @@ module.exports = {
   MUSER: process.env.MONGO_USER,
   MPASS: process.env.MONGO_PASSWORD,
   MPORT: process.env.MONGO_PORT,
+  JSECRET: process.env.JWT_SECRET,
 };

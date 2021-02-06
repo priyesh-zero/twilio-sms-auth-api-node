@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 module.exports = new mongoose.Schema({
-  name: String,
-  phone: String,
+  otp: Number,
+  updated_at: Date,
+  uid: String,
 });

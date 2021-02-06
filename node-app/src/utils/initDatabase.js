@@ -12,6 +12,8 @@ module.exports = new Promise(async (resolve, reject) => {
       pass: MPASS,
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
     },
     (err) => {
       if (err) return reject(err.message);
