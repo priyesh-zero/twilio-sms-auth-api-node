@@ -10,6 +10,5 @@ module.exports = async (uid, phone) => {
     from: TPHONE,
     to: `+91${phone.substr(-10)}`,
   });
-  console.log("message sent from Twilio", message);
   return await Verification.createOtpEntry(uid, otp);
 };
