@@ -28,7 +28,7 @@ router.post(
   }
 );
 
-router.get("/", authMiddleware, async (_request, response) => {
+router.get("/", authMiddleware, async (_, __, next) => {
   try {
     const result = await Users.all();
     next(APIResponse.createResponseWithJson(result));
