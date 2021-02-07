@@ -6,4 +6,7 @@ module.exports = {
   MPASS: process.env.MONGO_PASSWORD,
   MPORT: process.env.MONGO_PORT,
   JSECRET: process.env.JWT_SECRET,
+  TSID: process.env.TWILIO_SID,
+  TKEY: process.env.TWILIO_KEY,
+  TPHONE: process.env.TWILIO_PHONE,
 };

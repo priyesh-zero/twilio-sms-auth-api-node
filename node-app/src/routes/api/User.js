@@ -15,7 +15,7 @@ router.post(
     const { name, phone } = request.body;
     try {
       const userId = await Users.create(name, phone);
-      const vid = await sendOTP(userId);
+      const vid = await sendOTP(userId, phone);
       const tempAccessToken = signTempToken(vid, "5m");
       next(
         APIResponse.createResponseWithCustomCode(201, {
